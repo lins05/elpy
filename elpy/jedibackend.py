@@ -239,8 +239,10 @@ def linecol_to_pos(text, line, col):
                          .format(line, col))
     return offset
 
+ENVIRONMENT = jedi.create_environment(sys.executable)
 
 def run_with_debug(jedi, name, *args, **kwargs):
+    kwargs.setdefault('environment', ENVIRONMENT)
     re_raise = kwargs.pop('re_raise', ())
     try:
         script = jedi.Script(*args, **kwargs)
